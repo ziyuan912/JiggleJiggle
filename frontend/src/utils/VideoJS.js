@@ -17,6 +17,7 @@ export const VideoJS = (props) => {
       const videoElement = document.createElement("video-js");
 
       videoElement.classList.add('vjs-big-play-centered');
+      videoElement.classList.add('video-player')
       videoRef.current.appendChild(videoElement);
 
       const player = playerRef.current = videojs(videoElement, options, () => {
@@ -47,9 +48,7 @@ export const VideoJS = (props) => {
   }, [playerRef]);
 
   return (
-    <div data-vjs-player>
-      <div ref={videoRef} />
-    </div>
+    <div ref={videoRef} />
   );
 }
 
