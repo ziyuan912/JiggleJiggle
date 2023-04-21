@@ -10,9 +10,12 @@ const webcamVideoConstraints = {
 
 function WebcamView() {
   
+  let videoFeedURL = "http://127.0.0.1:8000/poseMatching/video_feed";
+
   return (
     <div className='webcam-view-container'>
-      <Webcam className='webcam-video' videoConstraints={webcamVideoConstraints} mirrored />
+      <Webcam className='webcam-video' videoConstraints={webcamVideoConstraints} />
+      {/* <img className='webcam-video' src={videoFeedURL} width={1000} /> */}
     </div>
   );
 }

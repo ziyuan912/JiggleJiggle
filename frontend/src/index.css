@@ -71,6 +71,11 @@ body {
 
 .webcam-video {
   border-radius: 30px;
+
+  object-fit: cover;
+  width: 75%;
+  height: 100%;
+  transform: scaleX(-1);
 }
 
 /* Video Player View */
