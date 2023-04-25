@@ -64,6 +64,7 @@ body {
 
 /* WebCam View */
 .webcam-view-container {
+  position: relative;
   width: 45%;
   display: flex;
   justify-content: center;
@@ -73,20 +74,54 @@ body {
   border-radius: 30px;
 
   object-fit: cover;
-  width: 75%;
+  width: 100%;
   height: 100%;
   transform: scaleX(-1);
+  z-index: 0;
+}
+
+.webcam-overlay-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 30px;
+  /* background-color: #ff000022; */
+
+  transform: scaleX(-1);
+  z-index: 1;
 }
 
 /* Video Player View */
 .video-player-view-container {
+  position: relative;
   width: 45%;
-  text-align: center;
+
+  display: flex;
+  justify-content: center;
 }
 
-.video-player {
-  border-radius: 30px;
+.video-player-and-canvas-wrapper {
+  position: relative;
   height: 100%;
+  width: fit-content;
+}
+
+.video-player > video {
+  width: auto !important;
+  border-radius: 30px;
+}
+
+.video-overlay-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  border-radius: 30px;
+  /* background-color: #ff000022; */
+  z-index: 1;
 }
 
 /* Speed Control View */
@@ -115,7 +150,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   font-size: 14px;
 }
 
