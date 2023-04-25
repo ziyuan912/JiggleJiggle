@@ -1,42 +1,98 @@
-import React from 'react';
-import videojs from 'video.js';
-import VideoJS from '../utils/VideoJS'
+import React, { useRef, useEffect } from 'react';
+import ReactPlayer from 'react-player'
+import * as poseDetection from '@tensorflow-models/pose-detection';
+import * as tf from '@tensorflow/tfjs-core';
+import '@tensorflow/tfjs-backend-webgl';
+import { RendererCanvas2d } from '../utils/PoseRenderer/RendererCanvas2d';
 
 import sampleVideo from "./sample-video.mov"
 
-function VideoView() {
-  const playerRef = React.useRef(null);
+function VideoView({ videoPlayerRef, setVideoPlayerRef, videoPlayerState, setVideoPlayerState, auxControlState, setAuxControlState }) {
 
-  const videoJSOptions = {
-    controls: true,
-    responsive: true,
-    aspectRatio: '3:4',
-    fluid: true,
-    sources: [{
-      src: sampleVideo,
-      type: 'video/mp4'
-    }]
+  const canvasRef = useRef(null);
+  const onObtainPlayerRef = playerRef => {
+    setVideoPlayerRef(playerRef);
+  }
+
+  const onProgress = ({ played, playedSeconds, loaded, loadedSeconds }) => {
+    if (videoPlayerState.seeking) { return; }
+    setVideoPlayerState({ ...videoPlayerState, played: played, playedSeconds: playedSeconds });
   };
 
-  const handlePlayerReady = (player) => {
-    playerRef.current = player;
-
-    // You can handle player events here, for example:
-    player.on('waiting', () => {
-      videojs.log('player is waiting');
-    });
-
-    player.on('dispose', () => {
-      videojs.log('player will dispose');
-    });
+  const mirroredStyle = {
+    transform: auxControlState.mirroring? 'scaleX(-1)' : 'none'   
   };
+
+  // FIXME: This code block should enter only once, but it is entered 3 times.
+  // FIXME: This hook should not depend on auxv control state.
+  // Start running the detection when the webpage is first loaded.
+  useEffect(() => {
+    console.log("[VideoView] Load pose detection model and run detection.");
+
+    const detect = async (poseDetector) => {
+      // Return the function if the video stream is not ready.
+      if (videoPlayerRef == null
+        || videoPlayerRef.getInternalPlayer() == null) {
+        return;
+      }
+  
+      const video = videoPlayerRef.getInternalPlayer();
+      const videoWidth = video.videoWidth;
+      const videoHeight = video.videoHeight;
+  
+      video.width = videoWidth;
+      video.height = videoHeight;
+  
+      const poses = await poseDetector.estimatePoses(video);
+  
+      if (canvasRef.current != null) {
+        canvasRef.current.width = video.videoWidth;
+        canvasRef.current.height = video.videoHeight;
+        const renderer = new RendererCanvas2d(canvasRef.current);
+        renderer.clearCtx();
+        renderer.drawResults(poses);
+      }
+    };  
+
+    const runDetection = async () => {
+      const model = poseDetection.SupportedModels.BlazePose;
+      const detectorConfig = {
+        runtime: 'tfjs',
+        // enableSmoothing: true,
+        modelType: 'lite'
+      };
+      const poseDetector = await poseDetection.createDetector(model, detectorConfig);
+  
+      setInterval(() => detect(poseDetector), 40);
+    };
+
+    runDetection();
+  }, [videoPlayerRef]);
 
   return (
     <div className='video-player-view-container'>
-      {/* <VideoJS className='video-player' options={videoJSOptions} onReady={handlePlayerReady} /> */}
-      <video className="video-player" controls>
-        <source src={sampleVideo} type="video/mp4" />
-      </video>
+      
+      <div className='video-player-and-canvas-wrapper'>
+        <ReactPlayer 
+          className='video-player'
+          ref={onObtainPlayerRef} 
+          url={sampleVideo}
+          height='100%' 
+          width='fit-content' 
+          playing={videoPlayerState.playing}
+          playbackRate={videoPlayerState.playbackRate}
+          loop={auxControlState.looping}
+          style={mirroredStyle}
+          onProgress={onProgress}
+        />
+
+        <canvas
+          ref={canvasRef} 
+          className='video-overlay-canvas' 
+          style={mirroredStyle}  
+        />
+      </div>
+
     </div>
   );
 }
