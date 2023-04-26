@@ -31,10 +31,6 @@ class DanceSystem {
     			visibleKeypoints += 1;
     		}
     	}
-    	console.log('user poses:');
-	    console.log(userPose);
-	    console.log('target poses:');
-	    console.log(targetPose);
     }
 
     return 100 - Math.floor((score / Math.max(visibleKeypoints, 1)) * 100);
