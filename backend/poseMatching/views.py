@@ -1,3 +1,4 @@
+import os
 from django.http import HttpResponse
 from django.shortcuts import render
 from .models import *
@@ -5,10 +6,9 @@ from .forms import *
 from django.core.mail import EmailMessage
 from django.views.decorators import gzip
 from django.http import StreamingHttpResponse
-from poseMatching.camera import VideoCamera
+from .camera import *
 from datetime import datetime
 
-# Create your views here.
 
 def poseMatching(request):
     return render(request, 'poseMatch.html')
@@ -23,16 +23,22 @@ def video_feed(request):
 	return StreamingHttpResponse(gen(VideoCamera()),
 								content_type='multipart/x-mixed-replace;boundary=frame')
 
-def show_video(request):
-	lastvideo= Video.objects.last()
-	videofile= lastvideo.videofile
-
-	form= VideoForm(request.POST or None, request.FILES or None)
-	if form.is_valid():
-		form.save()
-
-	context= {'videofile': videofile,
-	          'form': form
-	          }
-	  
-	return render(request, 'Blog/videos.html', context)
+def video_upload(request):
+	print(Video.objects.count())
+	if request.method == 'POST':
+		form= VideoForm(request.POST, request.FILES)
+		if form.is_valid():
+			file = request.FILES['file']
+			file_name = os.path.split(file.name)[-1]
+			name = os.path.splitext(file_name)[0]
+			video = Video(name=name, videofile=file)
+			video.save()
+			video_processor = VideoProcess(file)
+			context= {'videofile': file,
+			          'form': form
+			          }
+			  
+			return render(request, 'uploadVideo.html', context)
+	else:
+		form= VideoForm()
+	return render(request, 'uploadVideo.html', {'form': form})

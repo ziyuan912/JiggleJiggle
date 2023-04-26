@@ -1,24 +1,33 @@
+<!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Upload Videos</title>
-</head>
-<body>
-
-<h1>Video Uploader</h1>
-<form enctype="multipart/form-data" method="POST" action="">
-{% csrf_token %}
-{{ form.as_p }}
-<input type="submit" value="Upload"/>
-</form>
-
-<br><br>
-<video width='400' controls>
-<source src='{{ MEDIA_URL }}{{ videofile }}' type='video/mp4'>
-Your browser does not support the video tag.
-</video>
-<br><br>
-</p>
-
-</body>
-<script>'undefined'=== typeof _trfq || (window._trfq = []);'undefined'=== typeof _trfd && (window._trfd=[]),_trfd.push({'tccl.baseHost':'secureserver.net'},{'ap':'cpbh-mt'},{'server':'p3plmcpnl487010'},{'dcenter':'p3'},{'cp_id':'8437534'}) // Monitoring performance to make your website faster. If you want to opt-out, please contact web 
+    <head>
+        <title>Video File Upload and Display</title>
+    </head>
+    <body>
+		<div style="width: 500px; margin: auto;">
+			<fieldset name="Video File Upload and Display">
+				{% if msg %} {% autoescape off %} {{ msg }} {% endautoescape %} {% endif %}
+				<form method="post" action="video_upload" enctype="multipart/form-data">
+					{% csrf_token %}
+					<dl>
+						<p>
+							<label>Browse and select a video file</label>&nbsp;&nbsp;
+							<input type="file" name="file" autocomplete="off" required>
+						</p>
+					</dl>
+					<p>
+						<input type="submit" value="Upload and Display">
+					</p>
+				</form>
+			</fieldset>
+			
+			{% if filename %}
+				<div style="margin: 10px auto;">
+					<video autoplay="autoplay" controls="controls" preload="preload">
+						<source src="{{ MEDIA_URL }}/{{ filename }}" type="video/mp4"></source>
+					</video>
+				</div>
+			{% endif %}
+		</div>	
+    </body>
+</html>
