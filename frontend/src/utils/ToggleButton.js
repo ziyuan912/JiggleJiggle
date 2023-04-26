@@ -1,12 +1,21 @@
 import React from 'react';
-import { Button } from 'antd';
+import { Button, Typography } from 'antd';
 
-function ToggleButton({ icon, description }) {
-  
+const { Text } = Typography;
+
+
+function ToggleButton({ icon, description, state, setState }) {
+
+  const handleOnClick = () => {
+    setState(!state);
+  }
+
   return (
     <div className='toggle-button-container'>
-      <Button icon={icon} size='large' />
-      <span>{description}</span>
+      <Button icon={icon} size='large' onClick={handleOnClick} />
+      <Text>{description}</Text>
+      <Text type='secondary'>{state? 'On' : 'Off'}</Text>
+
     </div>
   );
 }
