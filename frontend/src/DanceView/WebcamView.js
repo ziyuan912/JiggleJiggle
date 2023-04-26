@@ -4,6 +4,7 @@ import * as poseDetection from '@tensorflow-models/pose-detection';
 import * as tf from '@tensorflow/tfjs-core';
 import '@tensorflow/tfjs-backend-webgl';
 
+import { danceSystem } from '../DanceSystem/DanceSystem';
 import { RendererCanvas2d } from '../utils/PoseRenderer/RendererCanvas2d';
 
 const webcamVideoConstraints = {
@@ -17,7 +18,6 @@ function WebcamView({ auxControlState }) {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
 
-  // FIXME: This code block should enter only once, but it is entered 2 times.
   // FIXME: This hook should not depend on auxv control state.
   // Start running the detection when the webpage is first loaded.
   useEffect(() => {
@@ -39,6 +39,7 @@ function WebcamView({ auxControlState }) {
       webcamRef.current.video.height = videoHeight;
   
       const poses = await poseDetector.estimatePoses(video);
+      danceSystem.userPoses = poses;
   
       if (canvasRef.current != null) {
         canvasRef.current.width = webcamRef.current.video.videoWidth;
@@ -50,23 +51,24 @@ function WebcamView({ auxControlState }) {
       }
     };
   
+    let intervalId = -1;
     const runDetection = async () => {
-      // const movenet = poseDetection.SupportedModels.MoveNet;
-      // const poseDetectorConfig = { modelType: poseDetection.movenet.SINGLEPOSE_THUNDER }
-      // const poseDetector = await poseDetection.createDetector(movenet, poseDetectorConfig);
-  
       const model = poseDetection.SupportedModels.BlazePose;
       const detectorConfig = {
         runtime: 'tfjs',
         enableSmoothing: true,
-        modelType: 'lite'
+        modelType: 'full'
       };
       const poseDetector = await poseDetection.createDetector(model, detectorConfig);
   
-      setInterval(() => detect(poseDetector), 40);
+      intervalId = setInterval(() => detect(poseDetector), 40);
     };
-  
     runDetection();
+  
+    return () => {
+      console.log("[WebcamView] Unmount")
+      clearInterval(intervalId);
+    };
   }, []);
 
   return (

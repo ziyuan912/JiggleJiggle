@@ -5,6 +5,7 @@ import * as tf from '@tensorflow/tfjs-core';
 import '@tensorflow/tfjs-backend-webgl';
 import { RendererCanvas2d } from '../utils/PoseRenderer/RendererCanvas2d';
 
+import { danceSystem } from '../DanceSystem/DanceSystem';
 import sampleVideo from "./sample-video.mov"
 
 function VideoView({ videoPlayerRef, setVideoPlayerRef, videoPlayerState, setVideoPlayerState, auxControlState, setAuxControlState }) {
@@ -23,7 +24,6 @@ function VideoView({ videoPlayerRef, setVideoPlayerRef, videoPlayerState, setVid
     transform: auxControlState.mirroring? 'scaleX(-1)' : 'none'   
   };
 
-  // FIXME: This code block should enter only once, but it is entered 3 times.
   // FIXME: This hook should not depend on auxv control state.
   // Start running the detection when the webpage is first loaded.
   useEffect(() => {
@@ -44,6 +44,7 @@ function VideoView({ videoPlayerRef, setVideoPlayerRef, videoPlayerState, setVid
       video.height = videoHeight;
   
       const poses = await poseDetector.estimatePoses(video);
+      danceSystem.targetPoses = poses;
   
       if (canvasRef.current != null) {
         canvasRef.current.width = video.videoWidth;
@@ -54,19 +55,24 @@ function VideoView({ videoPlayerRef, setVideoPlayerRef, videoPlayerState, setVid
       }
     };  
 
+    let intervalId = -1;
     const runDetection = async () => {
       const model = poseDetection.SupportedModels.BlazePose;
       const detectorConfig = {
         runtime: 'tfjs',
-        // enableSmoothing: true,
-        modelType: 'lite'
+        enableSmoothing: true,
+        modelType: 'full'
       };
       const poseDetector = await poseDetection.createDetector(model, detectorConfig);
   
-      setInterval(() => detect(poseDetector), 40);
+      intervalId = setInterval(() => detect(poseDetector), 40);
     };
-
     runDetection();
+  
+    return () => {
+      console.log("[VideoView] Unmount")
+      clearInterval(intervalId);
+    };
   }, [videoPlayerRef]);
 
   return (
