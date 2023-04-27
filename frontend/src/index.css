@@ -109,7 +109,8 @@ body {
 }
 
 .video-player > video {
-  width: auto !important;
+  width: 100% !important;
+  height: 100% !important;
   border-radius: 30px;
 }
 
@@ -165,4 +166,17 @@ body {
 
 .video-playback-slider {
   width: 60%;
+}
+
+/* Dance Score View */
+.perfect-score {
+  background-color: orange;
+}
+
+.good-score {
+  background-color: green;
+}
+
+.missed-score {
+  background-color: gray;
 }

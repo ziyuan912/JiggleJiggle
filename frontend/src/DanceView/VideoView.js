@@ -6,7 +6,7 @@ import '@tensorflow/tfjs-backend-webgl';
 import { RendererCanvas2d } from '../utils/PoseRenderer/RendererCanvas2d';
 
 import { danceSystem } from '../DanceSystem/DanceSystem';
-import sampleVideo from "./t-pose.mov"
+import sampleVideo from "./bounce.mov"
 
 function VideoView({ videoPlayerRef, setVideoPlayerRef, videoPlayerState, setVideoPlayerState, auxControlState, setAuxControlState }) {
 
