@@ -1,0 +1,165 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 68px;
+    margin: 10px 10px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #DBDBDB;
+  }
+
+
+  h1 {
+    color: #2E2E3A;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+  }
+  
+  
+  .header-left {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+  }
+  
+  .header-left img {
+    margin-right: 22px;
+    width: 26px;
+  }
+
+  .header-right form input[type="search"] {
+    border-radius: 8px;
+    width: 200px;
+    height: 30px;
+    border-color: #9E9E9E;
+    background-color: #F7FAFC;    
+  }
+  
+  .header-right {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+  }
+  
+  .header-right img {
+    margin-left: 26px;
+  }
+
+  .fa-solid {
+    color: #000000;
+  }
+
+  #icon1 {
+    width: 22px;
+  }
+
+  #profile {
+    width: 30px;
+  }
+  
+
+
+
+  .col-lg-7{
+    background-color: #DBDBDB;
+   }
+  
+    .menu {
+      width: 200px;
+      display: flex;
+      flex-direction: column;
+    }
+  
+    .btn-elegant {
+      background-color:#ffffff
+    }
+    
+    .menu-1 {
+      margin-bottom: 20px;
+    }
+    
+    .menu-2 {
+      margin-bottom: 10px;
+    }
+  
+    #topmenu{
+      align-items: top;
+    }
+  
+    #bottommenu{
+      align-items: end;
+    }
+  
+   .col col-lg-10{
+    margin-right: 10px;
+   
+   }
+  
+  
+    
+    #Voguing {
+      width: 280px;
+    }
+  
+    #youtuber {
+      font-size: smaller;
+      color: #9E9E9E;
+      font-weight: light;
+    }
+  
+    .row {
+      margin-top: 10px;
+    }
+  
+    // t1
+
+  
+    #backrgound-img{
+      width: 950px;
+    }
+
+
+    #s-text{
+      font-size: 14px;
+      color: #9E9E9E;
+      font-weight: light;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    #m-text{
+      font-size: smaller;
+      color: #000000;
+      font-weight: lighter;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+
+    #l-text{
+      font-size: 64px;
+      color: #000000;
+      font-weight: bold;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    #culcard{
+      width: 285px;
+    }
+
+    .btn {
+      font-size: 14px;
+      font-family: 'DM Sans', sans-serif;
+      width: 250px;
+    }
+    
+    .btn-dark {
+      background-color: #343A40;
+      color: #FFFFFF;
+      border-color: #343A40;
+    }
+    
+    .btn-dark:hover {
+      background-color: #23272b;
+      border-color: #1d2124;
+      color: #fff;
+    }
+    
