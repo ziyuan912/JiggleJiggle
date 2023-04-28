@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import ReactPlayer from 'react-player'
 import * as poseDetection from '@tensorflow-models/pose-detection';
 import * as tf from '@tensorflow/tfjs-core';
@@ -13,7 +13,9 @@ function VideoView({ videoPlayerRef, setVideoPlayerRef, videoPlayerState, setVid
   const canvasRef = useRef(null);
   const onObtainPlayerRef = playerRef => {
     setVideoPlayerRef(playerRef);
-  }
+  };
+  const [poseDetector, setPoseDetector] = useState(null);
+
 
   const onProgress = ({ played, playedSeconds, loaded, loadedSeconds }) => {
     if (videoPlayerState.seeking) { return; }
@@ -24,10 +26,25 @@ function VideoView({ videoPlayerRef, setVideoPlayerRef, videoPlayerState, setVid
     transform: auxControlState.mirroring? 'scaleX(-1)' : 'none'   
   };
 
-  // FIXME: This hook should not depend on auxv control state.
+  // Create pose detector when the webpage is loaded.
+  useEffect(() => {
+    const model = poseDetection.SupportedModels.BlazePose;
+    const detectorConfig = {
+      runtime: 'tfjs',
+      enableSmoothing: true,
+      modelType: 'full'
+    };
+    poseDetection.createDetector(model, detectorConfig)
+      .then(detector => {
+        setPoseDetector(detector);
+      });
+  }, []);
+
   // Start running the detection when the webpage is first loaded.
   useEffect(() => {
-    console.log("[VideoView] Load pose detection model and run detection.");
+    if (poseDetector == null) { return; }
+
+    console.log("[VideoView] Run pose detector.");
 
     const detect = async (poseDetector) => {
       // Return the function if the video stream is not ready.
@@ -39,41 +56,31 @@ function VideoView({ videoPlayerRef, setVideoPlayerRef, videoPlayerState, setVid
       const video = videoPlayerRef.getInternalPlayer();
       const videoWidth = video.videoWidth;
       const videoHeight = video.videoHeight;
-  
       video.width = videoWidth;
       video.height = videoHeight;
   
       const poses = await poseDetector.estimatePoses(video);
       danceSystem.targetPoses = poses;
   
-      if (canvasRef.current != null) {
-        canvasRef.current.width = video.videoWidth;
-        canvasRef.current.height = video.videoHeight;
-        const renderer = new RendererCanvas2d(canvasRef.current);
-        renderer.clearCtx();
+      if (canvasRef.current == null) { return; }
+      
+      canvasRef.current.height = video.videoHeight;
+      canvasRef.current.width = video.videoWidth;
+      const renderer = new RendererCanvas2d(canvasRef.current);
+      renderer.clearCtx();
+
+      if (auxControlState.showKeypoints) {
         renderer.drawResults(poses);
       }
     };  
 
-    let intervalId = -1;
-    const runDetection = async () => {
-      const model = poseDetection.SupportedModels.BlazePose;
-      const detectorConfig = {
-        runtime: 'tfjs',
-        enableSmoothing: true,
-        modelType: 'full'
-      };
-      const poseDetector = await poseDetection.createDetector(model, detectorConfig);
-  
-      intervalId = setInterval(() => detect(poseDetector), 40);
-    };
-    runDetection();
+    const intervalId = setInterval(() => detect(poseDetector), 40);
   
     return () => {
       console.log("[VideoView] Unmount")
       clearInterval(intervalId);
     };
-  }, [videoPlayerRef]);
+  }, [poseDetector, videoPlayerRef, auxControlState.showKeypoints]);
 
   return (
     <div className='video-player-view-container'>

@@ -15,11 +15,9 @@ class DanceSystem {
   }
 
   evaluatePoses() {
-    // let score = Math.random();
     let score = 0;
     let visibleKeypoints = 0;
 
-    /* Code to evaluate poses here. */
     if (this.userPoses.length > 0 && this.targetPoses.length > 0) {
     	var userPose = this.userPoses[0]['keypoints3D'];
     	var targetPose = this.targetPoses[0]['keypoints3D'];
@@ -33,7 +31,9 @@ class DanceSystem {
     	}
     }
 
-    return 100 - Math.floor((score / Math.max(visibleKeypoints, 1)) * 100);
+		// The overall dance score.
+		const danceScore = 100 - Math.floor((score / Math.max(visibleKeypoints, 1)) * 100);
+    return { danceScore, visibleKeypoints };
   }
 }
 

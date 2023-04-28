@@ -1,9 +1,10 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Webcam from 'react-webcam';
 import * as poseDetection from '@tensorflow-models/pose-detection';
 import * as tf from '@tensorflow/tfjs-core';
 import '@tensorflow/tfjs-backend-webgl';
 
+import DanceScoreView from './DanceScoreView/DancsScoreView';
 import { danceSystem } from '../DanceSystem/DanceSystem';
 import { RendererCanvas2d } from '../utils/PoseRenderer/RendererCanvas2d';
 
@@ -17,12 +18,27 @@ function WebcamView({ auxControlState }) {
   
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
+  const [poseDetector, setPoseDetector] = useState(null);
 
-  // FIXME: This hook should not depend on auxv control state.
-  // Start running the detection when the webpage is first loaded.
+  // Create pose detector when the webpage is loaded.
   useEffect(() => {
-    console.log("[WebcamView] Load pose detection model and run detection.");
+    const model = poseDetection.SupportedModels.BlazePose;
+    const detectorConfig = {
+      runtime: 'tfjs',
+      enableSmoothing: true,
+      modelType: 'full'
+    };
+    poseDetection.createDetector(model, detectorConfig)
+      .then(detector => {
+        setPoseDetector(detector);
+      });
+  }, []);
 
+  // Start running the pose detector.
+  useEffect(() => {
+    if (poseDetector == null) { return; }
+
+    console.log("[WebcamView] Run pose detector.");
     const detect = async (poseDetector) => {
       // Return the function if the webcam video stream is not ready.
       if (typeof webcamRef.current == 'undefined' 
@@ -41,39 +57,31 @@ function WebcamView({ auxControlState }) {
       const poses = await poseDetector.estimatePoses(video);
       danceSystem.userPoses = poses;
   
-      if (canvasRef.current != null) {
-        canvasRef.current.width = webcamRef.current.video.videoWidth;
-        canvasRef.current.height = webcamRef.current.video.videoHeight;
-  
-        const renderer = new RendererCanvas2d(canvasRef.current);
-        renderer.clearCtx();
+      if (canvasRef.current == null) { return; } 
+
+      canvasRef.current.width = webcamRef.current.video.videoWidth;
+      canvasRef.current.height = webcamRef.current.video.videoHeight;
+      const renderer = new RendererCanvas2d(canvasRef.current);
+      renderer.clearCtx();
+      
+      if (auxControlState.showKeypoints) {
         renderer.drawResults(poses);
       }
     };
   
-    let intervalId = -1;
-    const runDetection = async () => {
-      const model = poseDetection.SupportedModels.BlazePose;
-      const detectorConfig = {
-        runtime: 'tfjs',
-        enableSmoothing: true,
-        modelType: 'full'
-      };
-      const poseDetector = await poseDetection.createDetector(model, detectorConfig);
-  
-      intervalId = setInterval(() => detect(poseDetector), 40);
-    };
-    runDetection();
+    const intervalId = setInterval(() => detect(poseDetector), 40);
   
     return () => {
-      console.log("[WebcamView] Unmount")
       clearInterval(intervalId);
     };
-  }, []);
-
+  }, [poseDetector, auxControlState.showKeypoints]);
+  
   return (
     <div className='webcam-view-container'>
       <Webcam ref={webcamRef} className='webcam-video' videoConstraints={webcamVideoConstraints} />
+      <div className='dance-score-view-wrapper'>
+        <DanceScoreView />
+      </div>
       <canvas ref={canvasRef} className='webcam-overlay-canvas' />
     </div>
   );

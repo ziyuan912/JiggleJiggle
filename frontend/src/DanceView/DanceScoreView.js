@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { Button } from 'antd';
 import { danceSystem } from '../DanceSystem/DanceSystem';
 
-function DanceScoreView() {
+function OldDanceScoreView() {
 
   const buttonRef = useRef(null);
 
@@ -46,4 +46,4 @@ function DanceScoreView() {
   );
 };
 
-export default DanceScoreView;
+export default OldDanceScoreView;

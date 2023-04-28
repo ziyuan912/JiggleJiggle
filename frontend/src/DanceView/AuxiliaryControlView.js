@@ -1,6 +1,4 @@
 import React from 'react';
-import { Button } from 'antd';
-import DanceScoreView from './DanceScoreView';
 import ToggleButton from '../utils/ToggleButton';
 import { DeploymentUnitOutlined, SyncOutlined, SwapOutlined } from '@ant-design/icons';
 
@@ -39,7 +37,6 @@ function AuxiliaryControlView({ auxControlState, setAuxControlState }) {
         state={auxControlState.mirroring}
         setState={setMirroring}
       />
-      <DanceScoreView />
     </div>
   );
 }

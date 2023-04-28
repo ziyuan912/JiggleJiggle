@@ -13,9 +13,8 @@ function ToggleButton({ icon, description, state, setState }) {
   return (
     <div className='toggle-button-container'>
       <Button icon={icon} size='large' onClick={handleOnClick} />
-      <Text>{description}</Text>
-      <Text type='secondary'>{state? 'On' : 'Off'}</Text>
-
+      <div className='toggle-button-description'>{description}</div>
+      <div className='toggle-button-on-off'>{state? 'On' : 'Off'}</div>
     </div>
   );
 }
