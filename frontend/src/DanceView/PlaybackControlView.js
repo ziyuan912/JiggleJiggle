@@ -1,6 +1,8 @@
 import React from 'react';
-import { Button, Slider } from 'antd';
+import { Button, Slider, ConfigProvider } from 'antd';
 import { BackwardOutlined, PauseOutlined, CaretRightOutlined, ForwardOutlined } from '@ant-design/icons';
+
+import PlaybackProgressBarTheme from '../utils/Themes/PlaybackProgressBarTheme.json';
 
 function PlaybackControlView({ videoPlayerRef, videoPlayerState, setVideoPlayerState }) {
   
@@ -40,16 +42,18 @@ function PlaybackControlView({ videoPlayerRef, videoPlayerState, setVideoPlayerS
         <Button type='text' icon={<CaretRightOutlined />} onClick={handleOnPlay} />
         <Button type='text' icon={<ForwardOutlined />} onClick={() => fastForward(2) } />
       </span>
-      <Slider 
-        min={0}
-        max={1}
-        step={0.001}
-        value={videoPlayerState.played}
-        className='video-playback-slider' 
-        tooltip={{ formatter: null }} 
-        onChange={handleSliderChange}
-        onAfterChange={handleAfterSliderChange}  
-      />
+      <ConfigProvider theme={PlaybackProgressBarTheme}>
+        <Slider 
+          min={0}
+          max={1}
+          step={0.001}
+          value={videoPlayerState.played}
+          className='video-playback-slider' 
+          tooltip={{ formatter: null }} 
+          onChange={handleSliderChange}
+          onAfterChange={handleAfterSliderChange}  
+        />
+      </ConfigProvider>
     </div>
   );
 }

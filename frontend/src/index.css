@@ -140,6 +140,17 @@ body {
   gap: 16px;
 }
 
+.speed-control-button {
+  color: black;
+  font-weight: bold;
+  font-family: DM, sans-serif;
+  box-shadow: none;
+}
+
+.speed-control-button.selected {
+  transform: scale(1.25);
+}
+
 /* Auxiliary Control View */
 .auxiliary-control-view-container {
   width: 100%;
@@ -153,6 +164,10 @@ body {
 }
 
 /* Toggle Button */
+.toggle-button.enabled {
+  background-color: #e3e3e3;
+}
+
 .toggle-button-container {
   display: flex;
   flex-direction: column;
@@ -179,6 +194,7 @@ body {
 }
 
 .video-playback-slider {
+  
   width: 60%;
 }
 
