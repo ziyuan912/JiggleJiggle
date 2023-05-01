@@ -8,7 +8,7 @@ import { RendererCanvas2d } from '../utils/PoseRenderer/RendererCanvas2d';
 import { danceSystem } from '../DanceSystem/DanceSystem';
 import sampleVideo from "./bounce.mov"
 
-function VideoView({ videoPlayerRef, setVideoPlayerRef, videoPlayerState, setVideoPlayerState, auxControlState, setAuxControlState }) {
+function VideoView({ videoPlayerRef, setVideoPlayerRef, videoPlayerState, setVideoPlayerState, auxControlState, setAuxControlState, fileState }) {
 
   const canvasRef = useRef(null);
   const onObtainPlayerRef = playerRef => {
@@ -23,6 +23,12 @@ function VideoView({ videoPlayerRef, setVideoPlayerRef, videoPlayerState, setVid
   const mirroredStyle = {
     transform: auxControlState.mirroring? 'scaleX(-1)' : 'none'   
   };
+
+  console.log(fileState.state);
+  var url = sampleVideo;
+  if (fileState.state != null) {
+    url = fileState.state.url;
+  }
 
   // FIXME: This hook should not depend on auxv control state.
   // Start running the detection when the webpage is first loaded.
@@ -82,7 +88,7 @@ function VideoView({ videoPlayerRef, setVideoPlayerRef, videoPlayerState, setVid
         <ReactPlayer 
           className='video-player'
           ref={onObtainPlayerRef} 
-          url={sampleVideo}
+          url={url}
           height='100%' 
           width='fit-content' 
           playing={videoPlayerState.playing}

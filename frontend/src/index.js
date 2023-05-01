@@ -5,6 +5,8 @@ import './index.css';
 
 import HomeView from './HomeView/HomeView';
 import DanceView from './DanceView/DanceView';
+import UploadView from './UploadView/UploadView';
+import CultureView from './CultureView/CultureView';
 
 const router = createBrowserRouter([
   {
@@ -14,7 +16,15 @@ const router = createBrowserRouter([
   {
     path: "/dance",
     element: <DanceView />
-  }
+  },
+  {
+    path: "/upload",
+    element: <UploadView />
+  },
+  {
+    path: "/culture",
+    element: <CultureView />
+  },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

@@ -12,10 +12,6 @@ import "../style.css";
 
 function HomeView() {
   return (
-    // <div>
-    //   <h1>Jiggle Jiggle</h1>
-    //   <Link to="/dance"><Button>Start Dancing</Button></Link>
-    // </div>
     <div className='wrapper'>
       <header>
         <Container fluid>
@@ -61,7 +57,7 @@ function HomeView() {
 
 
         <div className="col col-lg-10">
-          <a href="t1.html">
+          <a href="upload">
             <img id="heroimg" src="https://static.wixstatic.com/media/1648f7_58911d54c2fa47f7b53814003d984f0e~mv2.png/v1/fill/w_1200,h_534,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/hero.png" className="img-fluid"/>
             </a>
           <div className="row">
