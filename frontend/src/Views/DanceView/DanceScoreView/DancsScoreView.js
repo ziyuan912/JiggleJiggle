@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { danceSystem } from "../../DanceSystem/DanceSystem";
+import { danceSystem } from "../../../Models/DanceSystem";
 import "./DanceScoreView.css";
 
 function TestDanceScore({ score }) {
@@ -30,15 +30,13 @@ function DanceScoreView({ id }) {
   useEffect(() => {
     const intervalId = setInterval(() => {
 
-      // Reject if user pose not found.
-      if (danceSystem.userPoses.length < 1) {return; }
-
-      const evaluation = danceSystem.evaluatePoses();
-      const danceScore = evaluation.danceScore;
-      const visibleKeypoints = evaluation.visibleKeypoints;
+      danceSystem.evaluatePoses();
+      const danceScore = danceSystem.danceScore;
+      const visibleKeypoints = danceSystem.matchedKeypoints;
+      const danceConfidence = danceSystem.userPoseConfidence;
 
       // Reject if visible keypoints are too few or confidence too low.
-      if (visibleKeypoints < 7) { return; }
+      if (visibleKeypoints < 6 || danceConfidence < 0.85) { return; }
 
       let danceScoreComponent = null;
       // danceScoreComponent = <TestDanceScore key={Date.now()} score={danceScore} />;

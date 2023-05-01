@@ -1,5 +1,5 @@
 import React from 'react';
-import ToggleButton from '../utils/ToggleButton';
+import ToggleButton from './ToggleButton';
 import { DeploymentUnitOutlined, SyncOutlined, SwapOutlined } from '@ant-design/icons';
 
 function AuxiliaryControlView({ auxControlState, setAuxControlState }) {

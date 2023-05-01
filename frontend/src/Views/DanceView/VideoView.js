@@ -3,10 +3,11 @@ import ReactPlayer from 'react-player'
 import * as poseDetection from '@tensorflow-models/pose-detection';
 import * as tf from '@tensorflow/tfjs-core';
 import '@tensorflow/tfjs-backend-webgl';
-import { RendererCanvas2d } from '../utils/PoseRenderer/RendererCanvas2d';
+import { RendererCanvas2d } from '../../utils/PoseRenderer/RendererCanvas2d';
 
-import { danceSystem } from '../DanceSystem/DanceSystem';
-import sampleVideo from "./bounce.mov"
+import { danceSystem } from '../../Models/DanceSystem';
+import sampleVideo from "./flower.mov"
+
 
 function VideoView({ videoPlayerRef, setVideoPlayerRef, videoPlayerState, setVideoPlayerState, auxControlState, setAuxControlState }) {
 

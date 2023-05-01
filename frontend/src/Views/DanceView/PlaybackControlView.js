@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Slider, ConfigProvider } from 'antd';
 import { BackwardOutlined, PauseOutlined, CaretRightOutlined, ForwardOutlined } from '@ant-design/icons';
 
-import PlaybackProgressBarTheme from '../utils/Themes/PlaybackProgressBarTheme.json';
+import PlaybackProgressBarTheme from '../../utils/Themes/PlaybackProgressBarTheme.json';
 
 function PlaybackControlView({ videoPlayerRef, videoPlayerState, setVideoPlayerState }) {
   

@@ -99,6 +99,33 @@ body {
   right: 10%;
 }
 
+.coaching-overlay-wrapper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+/* Coaching Overlay */
+.coaching-overlay-container {
+  width: 100%;
+  height: 100%;
+  padding: 15%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 30px;
+  
+  font-size: calc(1vw + 0.5em);
+  font-weight: bolder;
+  color: white;
+  background: #00000055;
+}
+
 /* Video Player View */
 .video-player-view-container {
   position: relative;
@@ -194,19 +221,5 @@ body {
 }
 
 .video-playback-slider {
-  
   width: 60%;
-}
-
-/* Dance Score View */
-.perfect-score {
-  background-color: orange;
-}
-
-.good-score {
-  background-color: green;
-}
-
-.missed-score {
-  background-color: gray;
 }

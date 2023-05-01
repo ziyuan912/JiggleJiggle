@@ -28,7 +28,7 @@ function DanceView() {
   return (
     <div className='dance-view-container'>
       <div className='top-dance-view-container'>
-        <Button className='back-button' type='text' size='large' icon={<LeftOutlined />} />
+        <Button className='back-button' type='text' size='large' icon={<LeftOutlined />}  onClick={() => window.history.back() } />
         <SpeedControlView videoPlayerRef={videoPlayerRef} videoPlayerState={videoPlayerState} setVideoPlayerState={setVideoPlayerState} />
       </div>
       <div className='middle-dance-view-container'>

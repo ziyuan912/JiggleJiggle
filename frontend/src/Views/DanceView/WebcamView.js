@@ -5,8 +5,9 @@ import * as tf from '@tensorflow/tfjs-core';
 import '@tensorflow/tfjs-backend-webgl';
 
 import DanceScoreView from './DanceScoreView/DancsScoreView';
-import { danceSystem } from '../DanceSystem/DanceSystem';
-import { RendererCanvas2d } from '../utils/PoseRenderer/RendererCanvas2d';
+import CoachingOverlay from './CoachingOverlay/CoachingOverlay';
+import { danceSystem } from '../../Models/DanceSystem';
+import { RendererCanvas2d } from '../../utils/PoseRenderer/RendererCanvas2d';
 
 const webcamVideoConstraints = {
   facingMode: 'user',
@@ -18,6 +19,7 @@ function WebcamView({ auxControlState }) {
   
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
+  const coachingOverlayRef = useRef(null);
   const [poseDetector, setPoseDetector] = useState(null);
 
   // Create pose detector when the webpage is loaded.
@@ -75,14 +77,35 @@ function WebcamView({ auxControlState }) {
       clearInterval(intervalId);
     };
   }, [poseDetector, auxControlState.showKeypoints]);
+
+  // Show the coaching overlay if too view keypoints detected.
+  useEffect(() => {
+
+    const intervalId = setInterval(() => {
+      if (coachingOverlayRef == null) { return; }
+      if (danceSystem.matchedKeypoints < 6 || danceSystem.userPoseConfidence < 0.85) {
+        coachingOverlayRef.current.style.visibility = 'visible';
+      } else {
+        coachingOverlayRef.current.style.visibility = 'hidden';
+      }
+    }, 200);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
   
   return (
     <div className='webcam-view-container'>
       <Webcam ref={webcamRef} className='webcam-video' videoConstraints={webcamVideoConstraints} />
+      <canvas ref={canvasRef} className='webcam-overlay-canvas' />
+
       <div className='dance-score-view-wrapper'>
         <DanceScoreView />
       </div>
-      <canvas ref={canvasRef} className='webcam-overlay-canvas' />
+      <div className='coaching-overlay-wrapper' ref={coachingOverlayRef}>
+        <CoachingOverlay  />
+      </div>
     </div>
   );
 }
