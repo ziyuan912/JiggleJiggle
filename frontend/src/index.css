@@ -115,8 +115,13 @@ margin-right: 10px;
 
 }
 
+#heroimg {
+  width: 100%;
+}
+
 #Voguing {
-  width: 280px;
+  width: 100%;
+  margin-bottom: 2%;
 }
 
 #youtuber {

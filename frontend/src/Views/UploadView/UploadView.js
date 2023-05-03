@@ -3,6 +3,7 @@ import VideoInput from "./VideoInput";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { Input } from 'antd';
 import { faSquare, faUpload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -23,7 +24,7 @@ export default function UploadView() {
               <div className="header-right justify-content-end">
                 <form role="search">
                   <label htmlFor="search"></label>
-                  <input id="search" type="search" placeholder="Search..." autoFocus required />
+                  <Input id="search" type="search" placeholder="Search..." autoFocus required />
                 </form>
                 <img id="icon1" src="https://static.wixstatic.com/media/1648f7_b6d0ebb29c064ec89f477ace182c9d56~mv2.png/v1/fill/w_34,h_34,al_c,lg_1,q_85,enc_auto/1648f7_b6d0ebb29c064ec89f477ace182c9d56~mv2.png" />
                 <img id="icon1" src="https://static.wixstatic.com/media/1648f7_92e1d6807b9e4f40b33b7797c64dde94~mv2.png/v1/fill/w_34,h_34,al_c,lg_1,q_85,enc_auto/1648f7_92e1d6807b9e4f40b33b7797c64dde94~mv2.png" />
@@ -35,14 +36,14 @@ export default function UploadView() {
       </header>
       <div className="container-fluid">
         <div className="row">
-          <div className="col-2 offset-5" style={{marginTop: "150px"}}>
-                <label type="button" className="btn btn-light btn-square-md" htmlFor="videoInput" style={{width: "150px", backgroundColor: "#D3D1D1"}}>
+          <div className="col-2 text-center" style={{marginTop: "150px", width: "100%"}}>
+                <label type="button" className="btn btn-light btn-square-md" htmlFor="videoInput" style={{width: "150px", padding: "20px", backgroundColor: "#D3D1D1", borderRadius: "30px"}}>
                     <FontAwesomeIcon icon={ faUpload } size="7x" style={{color: "#62656a"}}/>
                 </label>       
             <VideoInput/>
           </div>
           <b className="text-center font-weight-bold" style={{marginTop: "40px"}}> Drag and drop video to upload</b>
-          <div className="col-2 offset-5">
+          <div className="col-2 text-center" style={{width: "100%"}}>
                 <label type="button" className="btn btn-dark btn-square-md" htmlFor="videoInput" style={{width: "150px", marginTop: "20px"}}>Select Video</label>       
           </div>
         </div>
