@@ -9,7 +9,7 @@ import { danceSystem } from '../../Models/DanceSystem';
 import sampleVideo from "./flower.mov"
 
 
-function VideoView({ videoPlayerRef, setVideoPlayerRef, videoPlayerState, setVideoPlayerState, auxControlState, setAuxControlState }) {
+function VideoView({ videoPlayerRef, setVideoPlayerRef, videoPlayerState, setVideoPlayerState, auxControlState, setAuxControlState, fileState }) {
 
   const canvasRef = useRef(null);
   const onObtainPlayerRef = playerRef => {
@@ -40,6 +40,12 @@ function VideoView({ videoPlayerRef, setVideoPlayerRef, videoPlayerState, setVid
         setPoseDetector(detector);
       });
   }, []);
+
+  console.log(fileState.state);
+  var videoURL = sampleVideo;
+  if (fileState.state != null) {
+    videoURL = fileState.state.url;
+  }
 
   // Start running the detection when the webpage is first loaded.
   useEffect(() => {
@@ -90,7 +96,7 @@ function VideoView({ videoPlayerRef, setVideoPlayerRef, videoPlayerState, setVid
         <ReactPlayer 
           className='video-player'
           ref={onObtainPlayerRef} 
-          url={sampleVideo}
+          url={videoURL}
           height='100%' 
           width='fit-content' 
           playing={videoPlayerState.playing}
