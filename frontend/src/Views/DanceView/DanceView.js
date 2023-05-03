@@ -6,6 +6,7 @@ import AuxiliaryControlView from './AuxiliaryControlView';
 import PlaybackControlView from './PlaybackControlView';
 import { Button } from 'antd';
 import { LeftOutlined } from '@ant-design/icons';
+import { useLocation } from 'react-router-dom';
 
 function DanceView() {
   const [videoPlayerRef, setVideoPlayerRef] = useState(null);
@@ -25,10 +26,12 @@ function DanceView() {
     mirroring: false
   });
 
+  const fileState = useLocation();
+
   return (
     <div className='dance-view-container'>
       <div className='top-dance-view-container'>
-        <Button className='back-button' type='text' size='large' icon={<LeftOutlined />}  onClick={() => window.history.back() } />
+        <Button className='back-button' type='text' size='large' href='..' icon={<LeftOutlined />} />
         <SpeedControlView videoPlayerRef={videoPlayerRef} videoPlayerState={videoPlayerState} setVideoPlayerState={setVideoPlayerState} />
       </div>
       <div className='middle-dance-view-container'>
@@ -44,6 +47,7 @@ function DanceView() {
             setVideoPlayerState={setVideoPlayerState}
             auxControlState={auxControlState}
             setAuxControlState={setAuxControlState}
+            fileState={fileState}
           />
         </div>
         <div className='dance-view-right-column'></div>
