@@ -1,0 +1,240 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --perfect-color-primary: #f6aca2;
+  --perfect-color-secondary: #f49b90;
+  --perfect-color-tertiary: #f28b7d;
+  --perfect-color-quaternary: #f07a6a;
+  --perfect-color-quinary: #ee6352;
+  
+  --good-color-primary: #5192ED;
+  --good-color-secondary: #69A1F0;
+  --good-color-tertiary: #7EAEF2;
+  --good-color-quaternary: #90BAF5;
+  --good-color-quinary: #A2C4F5;
+ 
+  --miss-color-primary: #636363;
+  --miss-color-secondary: #787878;
+  --miss-color-tertiary: #8a8a8a;
+  --miss-color-quaternary: #989898;
+  --miss-color-quinary: #afafaf;
+}
+
+.dance-score-view {
+  position: relative;
+}
+
+.content {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.dance-score {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  font-family: bungee, sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 4vw;
+  text-align: center;
+  margin: 0;
+  /* color: transparent; */
+  background-clip: text;
+  letter-spacing: 0.4rem;
+}
+
+.perfect {
+  color: var(--perfect-color-primary);
+  text-shadow: 3px 3px 0 var(--perfect-color-secondary), 
+               6px 6px 0 var(--perfect-color-tertiary),
+               9px 9px var(--perfect-color-quaternary), 
+               12px 12px 0 var(--perfect-color-quinary);
+                 
+  animation: perfectBlink 1s ease-in infinite, 
+             fadeInMoveUpFadeOut 1s ease-in forwards;
+}
+
+.good {
+  color: var(--good-color-primary);
+  text-shadow: 3px 3px 0 var(--good-color-secondary), 
+               6px 6px 0 var(--good-color-tertiary),
+               9px 9px var(--good-color-quaternary), 
+               12px 12px 0 var(--good-color-quinary);
+  
+  animation: goodBlink 1s ease-in infinite, 
+             fadeInMoveUpFadeOut 1s ease-in forwards;
+}
+
+.miss {
+  color: var(--miss-color-primary);
+  text-shadow: 3px 3px 0 var(--miss-color-secondary), 
+               6px 6px 0 var(--miss-color-tertiary),
+               9px 9px var(--miss-color-quaternary), 
+               12px 12px 0 var(--miss-color-quinary);
+  
+  animation: missBlink 1s ease-in infinite, 
+             fadeInMoveUpFadeOut 1s ease-in forwards;
+}
+
+@keyframes fadeInMoveUpFadeOut {
+  0% {
+    transform: rotate(10deg) translateY(0);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  75% {
+    transform: rotate(10deg) translateY(-70px);
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(10deg) translateY(-70px);
+    opacity: 0;
+  }
+}
+
+@keyframes perfectBlink {
+  0% {
+    text-shadow: none;
+  }
+  10% {
+    text-shadow: 3px 3px 0 var(--perfect-color-secondary);
+  }
+  20% {
+    text-shadow: 3px 3px 0 var(--perfect-color-secondary),
+      6px 6px 0 var(--perfect-color-tertiary);
+  }
+  30% {
+    text-shadow: 3px 3px 0 var(--perfect-color-secondary),
+      6px 6px 0 var(--perfect-color-tertiary), 9px 9px var(--perfect-color-quaternary);
+  }
+  40% {
+    text-shadow: 3px 3px 0 var(--perfect-color-secondary),
+      6px 6px 0 var(--perfect-color-tertiary), 9px 9px var(--perfect-color-quaternary),
+      12px 12px 0 var(--perfect-color-quinary);
+  }
+  50% {
+    text-shadow: 3px 3px 0 var(--perfect-color-secondary),
+      6px 6px 0 var(--perfect-color-tertiary), 9px 9px var(--perfect-color-quaternary),
+      12px 12px 0 var(--perfect-color-quinary);
+  }
+  60% {
+    text-shadow: 3px 3px 0 var(--perfect-color-secondary),
+      6px 6px 0 var(--perfect-color-tertiary), 9px 9px var(--perfect-color-quaternary),
+      12px 12px 0 var(--perfect-color-quinary);
+  }
+  70% {
+    text-shadow: 3px 3px 0 var(--perfect-color-secondary),
+      6px 6px 0 var(--perfect-color-tertiary), 9px 9px var(--perfect-color-quaternary);
+  }
+  80% {
+    text-shadow: 3px 3px 0 var(--perfect-color-secondary),
+      6px 6px 0 var(--perfect-color-tertiary);
+  }
+  90% {
+    text-shadow: 3px 3px 0 var(--perfect-color-secondary);
+  }
+  100% {
+    text-shadow: none;
+  }
+}
+
+@keyframes goodBlink {
+  0% {
+    text-shadow: none;
+  }
+  10% {
+    text-shadow: 3px 3px 0 var(--good-color-secondary);
+  }
+  20% {
+    text-shadow: 3px 3px 0 var(--good-color-secondary),
+      6px 6px 0 var(--good-color-tertiary);
+  }
+  30% {
+    text-shadow: 3px 3px 0 var(--good-color-secondary),
+      6px 6px 0 var(--good-color-tertiary), 9px 9px var(--good-color-quaternary);
+  }
+  40% {
+    text-shadow: 3px 3px 0 var(--good-color-secondary),
+      6px 6px 0 var(--good-color-tertiary), 9px 9px var(--good-color-quaternary),
+      12px 12px 0 var(--good-color-quinary);
+  }
+  50% {
+    text-shadow: 3px 3px 0 var(--good-color-secondary),
+      6px 6px 0 var(--good-color-tertiary), 9px 9px var(--good-color-quaternary),
+      12px 12px 0 var(--good-color-quinary);
+  }
+  60% {
+    text-shadow: 3px 3px 0 var(--good-color-secondary),
+      6px 6px 0 var(--good-color-tertiary), 9px 9px var(--good-color-quaternary),
+      12px 12px 0 var(--good-color-quinary);
+  }
+  70% {
+    text-shadow: 3px 3px 0 var(--good-color-secondary),
+      6px 6px 0 var(--good-color-tertiary), 9px 9px var(--good-color-quaternary);
+  }
+  80% {
+    text-shadow: 3px 3px 0 var(--good-color-secondary),
+      6px 6px 0 var(--good-color-tertiary);
+  }
+  90% {
+    text-shadow: 3px 3px 0 var(--good-color-secondary);
+  }
+  100% {
+    text-shadow: none;
+  }
+}
+
+@keyframes missBlink {
+  0% {
+    text-shadow: none;
+  }
+  10% {
+    text-shadow: 3px 3px 0 var(--miss-color-secondary);
+  }
+  20% {
+    text-shadow: 3px 3px 0 var(--miss-color-secondary),
+      6px 6px 0 var(--miss-color-tertiary);
+  }
+  30% {
+    text-shadow: 3px 3px 0 var(--miss-color-secondary),
+      6px 6px 0 var(--miss-color-tertiary), 9px 9px var(--miss-color-quaternary);
+  }
+  40% {
+    text-shadow: 3px 3px 0 var(--miss-color-secondary),
+      6px 6px 0 var(--miss-color-tertiary), 9px 9px var(--miss-color-quaternary),
+      12px 12px 0 var(--miss-color-quinary);
+  }
+  50% {
+    text-shadow: 3px 3px 0 var(--miss-color-secondary),
+      6px 6px 0 var(--miss-color-tertiary), 9px 9px var(--miss-color-quaternary),
+      12px 12px 0 var(--miss-color-quinary);
+  }
+  60% {
+    text-shadow: 3px 3px 0 var(--miss-color-secondary),
+      6px 6px 0 var(--miss-color-tertiary), 9px 9px var(--miss-color-quaternary),
+      12px 12px 0 var(--miss-color-quinary);
+  }
+  70% {
+    text-shadow: 3px 3px 0 var(--miss-color-secondary),
+      6px 6px 0 var(--miss-color-tertiary), 9px 9px var(--miss-color-quaternary);
+  }
+  80% {
+    text-shadow: 3px 3px 0 var(--miss-color-secondary),
+      6px 6px 0 var(--miss-color-tertiary);
+  }
+  90% {
+    text-shadow: 3px 3px 0 var(--miss-color-secondary);
+  }
+  100% {
+    text-shadow: none;
+  }
+}

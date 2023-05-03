@@ -4,6 +4,9 @@ import { UndoOutlined, RedoOutlined } from '@ant-design/icons';
 
 function SpeedControlView({ videoPlayerRef, videoPlayerState, setVideoPlayerState }) {
   
+
+
+
   const fastForward = deltaTime => {
     const seekTime = Math.min(videoPlayerRef.getCurrentTime() + deltaTime, videoPlayerRef.getDuration());
     videoPlayerRef.seekTo(seekTime, 'seconds');
@@ -14,17 +17,25 @@ function SpeedControlView({ videoPlayerRef, videoPlayerState, setVideoPlayerStat
     videoPlayerRef.seekTo(seekTime, 'seconds');
   };
 
+
   const setPlaybackRate = (rate) => {
     setVideoPlayerState({ ...videoPlayerState, playbackRate: rate});
   };
   
+  const playbackRateOptions = [0.25, 0.5, 0.75, 1.0];
+  const playbackRateButtons = playbackRateOptions.map(rate => 
+    <Button key={rate} 
+      className={`speed-control-button ${rate === videoPlayerState.playbackRate ? 'selected' : ''}`}
+      type='primary' 
+      onClick={() => setPlaybackRate(rate)}> 
+      x {rate} 
+    </Button>
+  );
+
   return (
     <div className='speed-control-view-container'>
       <Button type='text' icon={<UndoOutlined />} onClick={() => rewind(2)} size='large' />
-      <Button onClick={() => setPlaybackRate(0.25)}>x 0.25</Button>
-      <Button onClick={() => setPlaybackRate(0.5)}>x 0.5</Button>
-      <Button onClick={() => setPlaybackRate(0.75)}>x 0.75</Button>
-      <Button onClick={() => setPlaybackRate(1)}>x 1</Button>
+      { playbackRateButtons }
       <Button type='text' icon={<RedoOutlined />} onClick={() => fastForward(2)} size='large' />
     </div>
   );

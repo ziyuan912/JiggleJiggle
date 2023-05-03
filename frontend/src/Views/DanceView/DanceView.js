@@ -14,6 +14,7 @@ function DanceView() {
     playerRef: null,
     playing: false,
     seeking: false,
+    playbackRate: 1.0,
     played: 0,  // Duration of video played, in percentage [0, 1]
     playedSeconds: 0,  // Duration of video played, in seconds
   });
@@ -27,7 +28,7 @@ function DanceView() {
   return (
     <div className='dance-view-container'>
       <div className='top-dance-view-container'>
-        <Button className='back-button' type='text' size='large' icon={<LeftOutlined />} />
+        <Button className='back-button' type='text' size='large' icon={<LeftOutlined />}  onClick={() => window.history.back() } />
         <SpeedControlView videoPlayerRef={videoPlayerRef} videoPlayerState={videoPlayerState} setVideoPlayerState={setVideoPlayerState} />
       </div>
       <div className='middle-dance-view-container'>

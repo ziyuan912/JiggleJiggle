@@ -93,6 +93,39 @@ body {
   z-index: 1;
 }
 
+.dance-score-view-wrapper {
+  position: absolute;
+  top: 15%;
+  right: 10%;
+}
+
+.coaching-overlay-wrapper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+/* Coaching Overlay */
+.coaching-overlay-container {
+  width: 100%;
+  height: 100%;
+  padding: 15%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 30px;
+  
+  font-size: calc(1vw + 0.5em);
+  font-weight: bolder;
+  color: white;
+  background: #00000055;
+}
+
 /* Video Player View */
 .video-player-view-container {
   position: relative;
@@ -134,6 +167,17 @@ body {
   gap: 16px;
 }
 
+.speed-control-button {
+  color: black;
+  font-weight: bold;
+  font-family: DM, sans-serif;
+  box-shadow: none;
+}
+
+.speed-control-button.selected {
+  transform: scale(1.25);
+}
+
 /* Auxiliary Control View */
 .auxiliary-control-view-container {
   width: 100%;
@@ -147,12 +191,24 @@ body {
 }
 
 /* Toggle Button */
+.toggle-button.enabled {
+  background-color: #e3e3e3;
+}
+
 .toggle-button-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
+}
+
+.toggle-button-description {
   font-size: 14px;
+}
+
+.toggle-button-on-off {
+  font-size: 12px;
+  color: gray;
 }
 
 /* Playback Control View */
@@ -166,17 +222,4 @@ body {
 
 .video-playback-slider {
   width: 60%;
-}
-
-/* Dance Score View */
-.perfect-score {
-  background-color: orange;
-}
-
-.good-score {
-  background-color: green;
-}
-
-.missed-score {
-  background-color: gray;
 }
