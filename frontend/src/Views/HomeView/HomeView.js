@@ -6,9 +6,6 @@ import { faHouse, faWindowMaximize, faChartSimple, faCircleInfo, faUser} from '@
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import "../../node_modules/font-awesome/css/font-awesome.min.css";
-import "../style.css";
 
 function HomeView() {
   return (

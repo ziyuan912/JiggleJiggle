@@ -4,12 +4,13 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ConfigProvider } from 'antd';
 
 import './index.css';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import '../node_modules/font-awesome/css/font-awesome.min.css';
 
 import HomeView from './Views/HomeView/HomeView';
 import UploadView from './Views/UploadView/UploadView';
 import DanceView from './Views/DanceView/DanceView';
-import UploadView from './UploadView/UploadView';
-import CultureView from './CultureView/CultureView';
+import CultureView from './Views/CultureView/CultureView';
 import AppTheme from './utils/Themes/DefaultAppTheme.json';
 
 const router = createBrowserRouter([
@@ -24,10 +25,6 @@ const router = createBrowserRouter([
   {
     path: "/dance",
     element: <DanceView />
-  },
-  {
-    path: "/upload",
-    element: <UploadView />
   },
   {
     path: "/culture",

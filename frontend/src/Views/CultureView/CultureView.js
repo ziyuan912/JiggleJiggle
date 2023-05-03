@@ -1,7 +1,4 @@
 import React from 'react';
-import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import "../../node_modules/font-awesome/css/font-awesome.min.css";
-import "../style.css";
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 
@@ -21,7 +18,7 @@ function CultureView() {
                 <img id="backrgound-img" src="https://static.wixstatic.com/media/1648f7_b1573d8bd6bd4ee3a7de00dd31b22b06~mv2.png/v1/fill/w_1200,h_804,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/bkblur.png"/>
                 
             <div className="absolute-culture"> 
-                <div className="content"> 
+                <div className="content d-flex flex-column"> 
                 <div className="row">
                     <div className="col">
                     <p id="s-text">The dance style of your uploaded video is</p>
