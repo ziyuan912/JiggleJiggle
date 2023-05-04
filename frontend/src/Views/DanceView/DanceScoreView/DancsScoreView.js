@@ -44,7 +44,7 @@ function DanceScoreView({ id }) {
         danceScoreComponent = <PerfectDanceScore key={Date.now()} />;
       } else if (danceScore > 85) {
         danceScoreComponent = <GoodDanceScore key={Date.now()} />;
-      } else if (danceScore < 70) {
+      } else if (danceScore < 80) {
         danceScoreComponent = <MissDanceScore key={Date.now()} />;
       } else {
         return;
