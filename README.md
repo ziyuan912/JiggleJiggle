@@ -1,5 +1,6 @@
-# Getting Started with Create React App
+# JiggleJiggle
 
+This repo contains the data and the code for JiggleJiggle - a dancing tutorial webapp built using React JS.
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
